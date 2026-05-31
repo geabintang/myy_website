@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BeliKuy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="body-login">
+
+    <div class="login-container">
+        <h2>Masuk ke Akun Anda</h2>
+        <form action="index.html" method="GET">
+            <div class="input-group">
+                <label for="username">Username / Email</label>
+                <input type="text" id="username" placeholder="Masukkan username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Masukkan password" required>
+            </div>
+            <button type="button" class="btn-submit" onclick="loginSukses()">Masuk</button>
+        </form>
+        <p class="register-link">Belum punya akun? <a href="#">Daftar sekarang</a></p>
+        <a href="index.html" class="back-link">&larr; Kembali ke Beranda</a>
+    </div>
+
+    <script>
+        function loginSukses() {
+            alert("Login Berhasil!");
+            // Mengarahkan kembali ke index.html dan menambahkan tanda '?status=logged_in' di URL
+            window.location.href = "index.html?status=logged_in";
+        }
+
+        // Script otomatis untuk mendeteksi apakah statusnya 'logged_in' atau 'logout'
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('status') === 'logged_in') {
+                // Mengubah tombol login menjadi logout jika diakses dari halaman utama yang ter-login
+                document.getElementById('nav-login').innerHTML = '<a href="index.html" class="btn-logout">Logout</a>';
+                
+                // Mengubah fungsi tombol beli agar tidak memunculkan alert 'harus login'
+                const buttons = document.querySelectorAll('.btn-buy');
+                buttons.forEach(button => {
+                    button.setAttribute('onclick', "alert('Produk berhasil dimasukkan ke keranjang!')");
+                });
+            }
+        }
+    </script>
+</body>
+</html>
